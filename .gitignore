@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+build/
+dist/
+分享给他人/
+*.spec
+*.log
+.venv/
+venv/
+

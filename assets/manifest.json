@@ -1,0 +1,105 @@
+{
+  "generated_at": "2026-09-11T21:27:06",
+  "source": "D:\\Downloads\\谷歌猪",
+  "sizes": {
+    "small": {
+      "canvas": [
+        339,
+        328
+      ],
+      "states": {
+        "idle": {
+          "normal": "states/small/idle.png",
+          "flipped": "states/small/idle_flip.png"
+        },
+        "walk": {
+          "normal": "states/small/walk.png",
+          "flipped": "states/small/walk_flip.png"
+        },
+        "sleepy": {
+          "normal": "states/small/sleepy.png",
+          "flipped": "states/small/sleepy_flip.png"
+        },
+        "happy": {
+          "normal": "states/small/happy.png",
+          "flipped": "states/small/happy_flip.png"
+        },
+        "angry": {
+          "normal": "states/small/angry.png",
+          "flipped": "states/small/angry_flip.png"
+        },
+        "music": {
+          "normal": "states/small/music.png",
+          "flipped": "states/small/music_flip.png"
+        }
+      },
+      "walk_frames": []
+    },
+    "medium": {
+      "canvas": [
+        406,
+        378
+      ],
+      "states": {
+        "idle": {
+          "normal": "states/medium/idle.png",
+          "flipped": "states/medium/idle_flip.png"
+        },
+        "walk": {
+          "normal": "states/medium/walk.png",
+          "flipped": "states/medium/walk_flip.png"
+        },
+        "sleepy": {
+          "normal": "states/medium/sleepy.png",
+          "flipped": "states/medium/sleepy_flip.png"
+        },
+        "happy": {
+          "normal": "states/medium/happy.png",
+          "flipped": "states/medium/happy_flip.png"
+        },
+        "angry": {
+          "normal": "states/medium/angry.png",
+          "flipped": "states/medium/angry_flip.png"
+        },
+        "music": {
+          "normal": "states/medium/music.png",
+          "flipped": "states/medium/music_flip.png"
+        }
+      },
+      "walk_frames": []
+    },
+    "large": {
+      "canvas": [
+        487,
+        438
+      ],
+      "states": {
+        "idle": {
+          "normal": "states/large/idle.png",
+          "flipped": "states/large/idle_flip.png"
+        },
+        "walk": {
+          "normal": "states/large/walk.png",
+          "flipped": "states/large/walk_flip.png"
+        },
+        "sleepy": {
+          "normal": "states/large/sleepy.png",
+          "flipped": "states/large/sleepy_flip.png"
+        },
+        "happy": {
+          "normal": "states/large/happy.png",
+          "flipped": "states/large/happy_flip.png"
+        },
+        "angry": {
+          "normal": "states/large/angry.png",
+          "flipped": "states/large/angry_flip.png"
+        },
+        "music": {
+          "normal": "states/large/music.png",
+          "flipped": "states/large/music_flip.png"
+        }
+      },
+      "walk_frames": []
+    }
+  }
+}
