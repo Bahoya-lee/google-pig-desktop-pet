@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-09-11T21:27:06",
+  "generated_at": "2026-09-11T22:44:44",
   "source": "D:\\Downloads\\谷歌猪",
   "sizes": {
     "small": {
       "canvas": [
-        339,
+        348,
         328
       ],
       "states": {
@@ -31,13 +31,37 @@
         "music": {
           "normal": "states/small/music.png",
           "flipped": "states/small/music_flip.png"
+        },
+        "patrol": {
+          "normal": "states/small/patrol.png",
+          "flipped": "states/small/patrol_flip.png"
+        },
+        "love": {
+          "normal": "states/small/love.png",
+          "flipped": "states/small/love_flip.png"
+        },
+        "bless": {
+          "normal": "states/small/bless.png",
+          "flipped": "states/small/bless_flip.png"
+        },
+        "surprised": {
+          "normal": "states/small/surprised.png",
+          "flipped": "states/small/surprised_flip.png"
+        },
+        "tired": {
+          "normal": "states/small/tired.png",
+          "flipped": "states/small/tired_flip.png"
+        },
+        "grumpy": {
+          "normal": "states/small/grumpy.png",
+          "flipped": "states/small/grumpy_flip.png"
         }
       },
       "walk_frames": []
     },
     "medium": {
       "canvas": [
-        406,
+        418,
         378
       ],
       "states": {
@@ -64,13 +88,37 @@
         "music": {
           "normal": "states/medium/music.png",
           "flipped": "states/medium/music_flip.png"
+        },
+        "patrol": {
+          "normal": "states/medium/patrol.png",
+          "flipped": "states/medium/patrol_flip.png"
+        },
+        "love": {
+          "normal": "states/medium/love.png",
+          "flipped": "states/medium/love_flip.png"
+        },
+        "bless": {
+          "normal": "states/medium/bless.png",
+          "flipped": "states/medium/bless_flip.png"
+        },
+        "surprised": {
+          "normal": "states/medium/surprised.png",
+          "flipped": "states/medium/surprised_flip.png"
+        },
+        "tired": {
+          "normal": "states/medium/tired.png",
+          "flipped": "states/medium/tired_flip.png"
+        },
+        "grumpy": {
+          "normal": "states/medium/grumpy.png",
+          "flipped": "states/medium/grumpy_flip.png"
         }
       },
       "walk_frames": []
     },
     "large": {
       "canvas": [
-        487,
+        501,
         438
       ],
       "states": {
@@ -97,6 +145,30 @@
         "music": {
           "normal": "states/large/music.png",
           "flipped": "states/large/music_flip.png"
+        },
+        "patrol": {
+          "normal": "states/large/patrol.png",
+          "flipped": "states/large/patrol_flip.png"
+        },
+        "love": {
+          "normal": "states/large/love.png",
+          "flipped": "states/large/love_flip.png"
+        },
+        "bless": {
+          "normal": "states/large/bless.png",
+          "flipped": "states/large/bless_flip.png"
+        },
+        "surprised": {
+          "normal": "states/large/surprised.png",
+          "flipped": "states/large/surprised_flip.png"
+        },
+        "tired": {
+          "normal": "states/large/tired.png",
+          "flipped": "states/large/tired_flip.png"
+        },
+        "grumpy": {
+          "normal": "states/large/grumpy.png",
+          "flipped": "states/large/grumpy_flip.png"
         }
       },
       "walk_frames": []

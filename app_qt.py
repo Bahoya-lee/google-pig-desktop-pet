@@ -17,6 +17,7 @@ from pathlib import Path
 from PySide6.QtCore import QPoint, QRectF, Qt, QTimer
 from PySide6.QtGui import (
     QAction,
+    QActionGroup,
     QColor,
     QFont,
     QIcon,
@@ -30,6 +31,7 @@ from PySide6.QtWidgets import (
     QAbstractButton,
     QApplication,
     QButtonGroup,
+    QComboBox,
     QFrame,
     QGridLayout,
     QHBoxLayout,
@@ -52,6 +54,23 @@ from app import (
     save_settings,
 )
 from single_instance import acquire_single_instance
+
+
+ACTION_NAMES = {
+    "auto": "自动切换",
+    "idle": "待机",
+    "walk": "走动",
+    "happy": "开心",
+    "angry": "生气",
+    "sleepy": "困倦",
+    "music": "听歌",
+    "patrol": "巡视",
+    "love": "比心",
+    "bless": "祝福",
+    "surprised": "惊讶",
+    "tired": "困意",
+    "grumpy": "不爽",
+}
 
 
 def set_startup(enabled: bool) -> bool:
@@ -226,6 +245,19 @@ class PetWindow(QWidget):
         self.walk_action.setCheckable(True)
         self.walk_action.setChecked(bool(self.settings.get("auto_walk")))
         self.walk_action.toggled.connect(self.set_walk_enabled)
+        fixed_menu = menu.addMenu("固定动作")
+        fixed_group = QActionGroup(self)
+        fixed_group.setExclusive(True)
+        self.fixed_actions = {}
+        current_fixed = self.settings.get("fixed_action", "auto")
+        for key, label in ACTION_NAMES.items():
+            action = QAction(label, self)
+            action.setCheckable(True)
+            action.setChecked(key == current_fixed)
+            action.triggered.connect(lambda _=False, k=key: self.set_fixed_action(k))
+            fixed_group.addAction(action)
+            fixed_menu.addAction(action)
+            self.fixed_actions[key] = action
         quit_action = QAction("退出桌宠", self)
         quit_action.triggered.connect(self.quit)
         menu.addAction(control)
@@ -246,6 +278,11 @@ class PetWindow(QWidget):
         self.control_panel.show()
 
     def do_action(self, state):
+        fixed = self.settings.get("fixed_action", "auto")
+        if fixed != "auto":
+            self.current_state = fixed
+            self.update()
+            return
         self.current_state = state
         self.override_state = state
         self.override_until = time.monotonic() + (5.0 if state == "music" else 3.2)
@@ -277,6 +314,24 @@ class PetWindow(QWidget):
             self.walk_action.blockSignals(True)
             self.walk_action.setChecked(bool(enabled))
             self.walk_action.blockSignals(False)
+        self.save()
+        self.update()
+        if self.control_panel:
+            QTimer.singleShot(0, self.control_panel.refresh)
+
+    def set_fixed_action(self, action):
+        if action != "auto" and action not in self.pixmaps:
+            action = "auto"
+        self.settings["fixed_action"] = action
+        for key, menu_action in getattr(self, "fixed_actions", {}).items():
+            menu_action.blockSignals(True)
+            menu_action.setChecked(key == action)
+            menu_action.blockSignals(False)
+        self.override_state = None
+        self.override_until = 0.0
+        self.current_state = action if action != "auto" else (
+            "walk" if self.settings.get("auto_walk") else "idle"
+        )
         self.save()
         self.update()
         if self.control_panel:
@@ -434,6 +489,7 @@ class PetWindow(QWidget):
 
     def _tick(self):
         now = time.monotonic()
+        fixed_action = self.settings.get("fixed_action", "auto")
         self.phase += 0.055
         self.prop_phase += 0.08
         if self.override_until and now >= self.override_until:
@@ -445,6 +501,7 @@ class PetWindow(QWidget):
             self.prop_kind = ""
         if (
             self.settings["random_actions"]
+            and fixed_action == "auto"
             and not self.dragging
             and now >= self.next_random_action
             and not self.override_state
@@ -472,6 +529,8 @@ class PetWindow(QWidget):
             self.current_state = self.override_state
         else:
             self.current_state = "idle"
+        if fixed_action != "auto" and fixed_action in self.pixmaps:
+            self.current_state = fixed_action
         self.update()
 
 
@@ -503,9 +562,13 @@ class ControlPanel(QWidget):
         )
         subtitle = QLabel("让谷歌猪按你的习惯待在桌面上")
         subtitle.setStyleSheet(f"color:{theme['secondary']};font-size:11px;")
-        status = QLabel(
-            "飘动模式已开启" if self.pet.settings.get("auto_walk") else "飘动模式已关闭"
+        fixed_action = self.pet.settings.get("fixed_action", "auto")
+        status_text = (
+            "固定动作：" + ACTION_NAMES.get(fixed_action, fixed_action)
+            if fixed_action != "auto"
+            else ("飘动模式已开启" if self.pet.settings.get("auto_walk") else "飘动模式已关闭")
         )
+        status = QLabel(status_text)
         status.setStyleSheet(
             "QLabel{"
             f"color:{theme['accent'] if self.pet.settings.get('auto_walk') else theme['tertiary']};"
@@ -584,6 +647,31 @@ class ControlPanel(QWidget):
             group.addButton(button)
             segment.addWidget(button)
         size_layout.addLayout(segment)
+        fixed_row = QHBoxLayout()
+        fixed_label = QLabel("固定动作")
+        fixed_label.setStyleSheet(
+            f"color:{theme['text']};font-size:12px;font-weight:600;"
+        )
+        combo = QComboBox()
+        for key, label in ACTION_NAMES.items():
+            if key == "auto" or key in self.pet.pixmaps:
+                combo.addItem(label, key)
+        current_index = combo.findData(self.pet.settings.get("fixed_action", "auto"))
+        combo.setCurrentIndex(max(0, current_index))
+        combo.setFixedHeight(34)
+        combo.setCursor(Qt.PointingHandCursor)
+        combo.setStyleSheet(
+            f"QComboBox{{border:1px solid {theme['line']};border-radius:9px;"
+            f"background:{theme['card2']};color:{theme['text']};padding:4px 10px;}}"
+            "QComboBox::drop-down{border:none;width:24px;}"
+        )
+        combo.currentIndexChanged.connect(
+            lambda _=0: self.pet.set_fixed_action(combo.currentData())
+        )
+        fixed_row.addWidget(fixed_label)
+        fixed_row.addStretch()
+        fixed_row.addWidget(combo)
+        size_layout.addLayout(fixed_row)
         root.addWidget(size_card)
 
         action_card = self._card()

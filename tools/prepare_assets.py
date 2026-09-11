@@ -66,6 +66,40 @@ STATES = {
         "crop": (0, 0, 900, 900),
         "mode": "white",
     },
+    "patrol": {
+        "file": "Image_1789137468057_720.jpg",
+        "crop": (250, 250, 950, 950),
+        "mode": "white",
+    },
+    "love": {
+        "file": "Image_1789137465672_836.jpg",
+        "crop": (300, 100, 900, 740),
+        "mode": "white",
+        "remove_colors": [(84, 71, 101)],
+    },
+    "bless": {
+        "file": "Image_1789137460401_515.jpg",
+        "crop": (110, 250, 900, 740),
+        "mode": "white",
+        "remove_colors": [(84, 71, 101)],
+    },
+    "surprised": {
+        "file": "Image_1789137463515_55.png",
+        "crop": (280, 450, 1250, 1312),
+        "mode": "white",
+    },
+    "tired": {
+        "file": "Camera_XHS_17891373611621040g008320kpuq9elm005o7.jpg",
+        "crop": (650, 40, 1440, 786),
+        "mode": "white",
+        "corner": (0.80, 0.80),
+    },
+    "grumpy": {
+        "file": "Camera_XHS_17891373592861040g2sg320kptnhn5m6g5o7.jpg",
+        "crop": (650, 40, 1440, 786),
+        "mode": "white",
+        "corner": (0.80, 0.80),
+    },
 }
 
 SIZE_HEIGHTS = {"small": 190, "medium": 240, "large": 300}

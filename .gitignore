@@ -5,6 +5,6 @@ dist/
 分享给他人/
 *.spec
 *.log
+_*.png
 .venv/
 venv/
-

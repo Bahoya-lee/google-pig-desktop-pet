@@ -73,6 +73,7 @@ DEFAULT_SETTINGS = {
     "random_actions": True,
     "dark_mode": True,
     "size": "medium",
+    "fixed_action": "auto",
     "start_on_boot": False,
     "x": None,
     "y": None,
