@@ -39,8 +39,8 @@ STATES = {
         "crop": (0, 0, 1012, 1024),
         "mode": "white",
         "remove_colors": [(84, 71, 101)],
-        "mask_ellipse": (0.52, 0.54, 0.38, 0.40),
-        "mask_bottom": 0.82,
+        "mask_ellipse": (0.52, 0.54, 0.38, 0.44),
+        "mask_bottom": 0.97,
     },
     "sleepy": {
         "file": "Camera_1040g3k0324i5e4csn42g5q51aeb6c5mr79h8b18.jpg",
